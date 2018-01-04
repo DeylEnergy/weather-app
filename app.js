@@ -4,7 +4,9 @@ let url = 'https://maps.googleapis.com/maps/api/geocode/json?address=1301+lombar
 url = url + require('./apiKey');
 
 request({url, json:true}, (err, res, body) => {
-  if (!err){
-    console.log(JSON.stringify(body, undefined, 3));
+  if (!err && res.statusCode == 200){
+    console.log('Adresss:', body.results[0].formatted_address);
+    console.log('Latitude:', body.results[0].geometry.location.lat);
+    console.log('Longitude:', body.results[0].geometry.location.lng);
   }
 });
