@@ -20,7 +20,11 @@ let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&
 url = url + require('./apiKey');
 
 request({url, json:true}, (err, res, body) => {
-  if (!err && res.statusCode == 200){
+  if (err){
+    console.log('Something wrong with connection');
+  } else if (body.status == 'ZERO_RESULTS'){
+    console.log('Address has not been found');
+  } else if (body.status == 'OK'){
     console.log('Adress:', body.results[0].formatted_address);
     console.log('Latitude:', body.results[0].geometry.location.lat);
     console.log('Longitude:', body.results[0].geometry.location.lng);
