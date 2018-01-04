@@ -1,11 +1,12 @@
 const request = require('request');
+const apiKey = require('../apiKey');
 
 module.exports = {
   geocodeAdress(address, cb){
     address = encodeURIComponent(address);
 
     let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=`;
-    url = url + require('../apiKey');
+    url = url + apiKey.google;
 
     request({url, json:true}, (err, res, body) => {
       if (err){
